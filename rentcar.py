@@ -192,12 +192,103 @@ def add_inventario(marca, modelo, year, precio, disponible):
     save_inventario(inventario)
     print('Auto registrado con exito!')
 
+def show_inventario():
+    inventario = load_inventario()
+    if not inventario:
+        print('No hay autos registrados')
+        return
+    print('Lista de autos:')
+    for auto in inventario:
+        print(f'{auto.id} - {auto.marca} {auto.modelo} - {auto.year} - {auto.precio} - {auto.disponible}')
+
+def search_inventario():
+    inventario = load_inventario()
+    if not inventario:
+        print('No hay autos registrados')
+        return
+    print('Lista de autos:')
+    for auto in inventario:
+        print(f'{auto.id} - {auto.marca} {auto.modelo} - {auto.year} - {auto.precio} - {auto.disponible}')
+
+    auto_id = int(input('Ingrese el id del auto: '))
+    for auto in inventario:
+        if auto.id == auto_id:
+            print(f'{auto.id} - {auto.marca} {auto.modelo} - {auto.year} - {auto.precio} - {auto.disponible}')
+            return auto
+
+    print('Auto no encontrado')
+
+def modify_inventario():
+    auto = search_inventario()
+    if not auto:
+        return
+    auto.marca = input('Ingrese la nueva marca del auto: ')
+    auto.modelo = input('Ingrese el nuevo modelo del auto: ')
+    auto.year = input('Ingrese el nuevo año del auto: ')
+    auto.precio = input('Ingrese el nuevo precio del auto: ')
+    auto.disponible = input('Ingrese si el auto esta disponible: ')
+
+def add_reservation():
+    customers = load_data()
+    inventario = load_inventario()
+    if not customers:
+        print('No hay clientes registrados')
+        return
+    if not inventario:
+        print('No hay autos registrados')
+        return
+    customer = search_customer()
+    if not customer:
+        return
+    auto = search_inventario()
+    if not auto:
+        return
+    start_date = input('Ingrese la fecha de inicio de la reservacion: ')
+    end_date = input('Ingrese la fecha de fin de la reservacion: ')
+    total = input('Ingrese el total de la reservacion: ')
+    reservation = load_reservation()
+    if reservation:
+        new_id = max(reservation.id for reservation in reservation) + 1
+    else:
+        new_id = 1
+    reservation.append(Reservation(new_id, customer.id, auto.id, start_date, end_date, total))
+    save_reservation(reservation)
+    print('Reservacion registrada con exito!')
+
+def search_reservation():
+    reservation = load_reservation()
+    if not reservation:
+        print('No hay reservaciones registradas')
+        return
+    print('Lista de reservaciones:')
+    for reservation in reservation:
+        print(f'{reservation.id} - {reservation.customer_id} {reservation.car_id} - {reservation.start_date} - {reservation.end_date} - {reservation.total}')   
+
+    reservation_id = int(input('Ingrese el id de la reservacion: '))
+    for reservation in reservation:
+        if reservation.id == reservation_id:
+            print(f'{reservation.id} - {reservation.customer_id} {reservation.car_id} - {reservation.start_date} - {reservation.end_date} - {reservation.total}')
+            return reservation  
+
+def modify_reservation():
+    reservation = search_reservation()
+    if not reservation:
+        return
+    reservation.customer_id = input('Ingrese el nuevo id del cliente: ')
+    reservation.car_id = input('Ingrese el nuevo id del auto: ')
+    reservation.start_date = input('Ingrese la nueva fecha de inicio de la reservacion: ')
+    reservation.end_date = input('Ingrese la nueva fecha de fin de la reservacion: ')
+    reservation.total = input('Ingrese el nuevo total de la reservacion: ')
+
+        
+
 def menu_principal():
     while True:
         print('Menu principal')
         print('1. Menu de clientes')
         print('2. Menu de inventario')
-        print('3. Salir')
+        print("3. Menu de reservaciones")
+        print('4. Salir')
         option = input('Ingrese una opcion: ')
         
 
@@ -211,8 +302,11 @@ def menu_principal():
             
             menu_inventory()
 
-       
         elif option == '3':
+            menu_reservation()
+
+       
+        elif option == '4':
             print('Gracias por usar el sistema')
             break
 
@@ -245,6 +339,25 @@ def menu_customers():
             break
         else:
             print('Opcion invalida')
+
+def menu_reservation():
+    while True:
+        print('Menu de reservaciones')
+        print('1. Realizar reservacion')
+        print('2. Buscar reservacion')
+        print('3. Modificar reservacion')
+        print('4. Regresar')
+        option = input('Ingrese una opcion: ')
+        os.system('cls')
+
+        if option == '1':
+            add_reservation()
+        elif option == '2':
+            search_reservation()
+        elif option == '3':
+            modify_reservation()
+        elif option == '4':
+            break
 
 def menu_inventory():
     while True:
