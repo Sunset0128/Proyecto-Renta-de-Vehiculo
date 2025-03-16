@@ -50,25 +50,41 @@ class Reservation:
             'car_id': self.car_id,
             'customer_name': self.customer_name,
             'customer_lastname': self.customer_lastname,
-            'start_date': str(self.start_date),
-            'end_date': self.end_date,
+            'start_date': self.start_date.strftime('%Y-%m-%d'), 
+            'end_date': self.end_date.strftime('%Y-%m-%d'),      
             'total': self.total
         }
 
+    #Modificado por Migue
     def from_dict(data):
-         return Reservation(data['id'], data['customer_id'], data['car_id'], data['customer_name'],data['customer_lastname'], data['start_date'], data['end_date'],
-                               data['total'])
-
+        try:
+            start_date = datetime.strptime(data['start_date'], '%Y-%m-%d')
+            end_date = datetime.strptime(data['end_date'], '%Y-%m-%d')
+            return Reservation(
+            data['id'],
+            data['customer_id'],
+            data['car_id'],
+            data.get('customer_name', ''),  
+            data.get('customer_lastname', ''),
+            data.get('auto_name', ''),  
+            data.get('auto_model', ''),  
+            start_date,
+            end_date,
+            data['total']
+        )
+        except KeyError as e:
+            print(f"Error: Falta la clave {e} en los datos de la reservación.")
+        return None  
 
 class Inventario:
-    def __init__(self, id, marca, modelo, year, precio, color, disponible):
+    def __init__(self, id, marca, modelo, year, precio, color, disponible=True):
         self.id = id
         self.marca = marca
         self.modelo = modelo
         self.year = year
         self.precio = precio
         self.color = color
-        self.disponible = disponible
+        self.disponible = disponible 
 
     def to_dict(self):
         return {
@@ -79,7 +95,6 @@ class Inventario:
             'precio': self.precio,
             'color': self.color,
             'disponible': self.disponible
-
         }
 
     def from_dict(data):
@@ -88,12 +103,21 @@ class Inventario:
 
 def load_data():
     if not os.path.exists(FILENAME_DATA_1):
-        with open(FILENAME_DATA_1, 'w') as file:
-            json.dump([], file)
         return []
-
-    with open(FILENAME_DATA_1, 'r') as file:
-        return [Costumer.from_dict(p) for p in json.load(file)]
+    try:
+        with open(FILENAME_DATA_1, 'r') as file:
+            data = json.load(file)
+            customers = []
+            for p in data:
+                # Modificado por Migue
+                if all(key in p for key in ['id', 'name', 'lastname', 'email', 'phone']):
+                    customers.append(Costumer.from_dict(p))
+                else:
+                    print(f"Cliente inválido omitido: {p}")
+            return customers
+    except Exception as e:
+        print(f"Error al cargar clientes: {e}")
+        return []
 
 
 def load_reservation():
@@ -146,7 +170,6 @@ def add_customer(customers):
 
 
 def show_customers(customers):
-
     if not customers:
         print('No hay clientes registrados')
         return
@@ -182,24 +205,23 @@ def modify_customer(customers):
     customer.email = input('Ingrese el nuevo email del cliente: ')
     customer.phone = input('Ingrese el nuevo telefono del cliente: ')
 
-
 def add_inventario(inventario):
-
     if inventario:
-        new_id = max(inventario.id for inventario in inventario) + 1
+        new_id = max(auto.id for auto in inventario) + 1
     else:
         new_id = 1
+
     marca = input('Ingrese la marca del auto: ')
     modelo = input('Ingrese el modelo del auto: ')
     year = input('Ingrese el año del auto: ')
     precio = input('Ingrese el precio del auto: ')
-    color = input('Ingrese el color del auto:' )
-    disponible = input('Ingrese si el auto esta disponible: ')
-    inventario.append(Inventario(new_id, marca, modelo, year, precio, disponible))
+    color = input('Ingrese el color del auto: ') 
+    disponible = True  #Modificado por Migue, si se esta registrando por defecto el auto debe estar disponible
+
+    inventario.append(Inventario(new_id, marca, modelo, year, precio, color, disponible))
 
     save_inventario(inventario)
-    print('Auto registrado con exito!')
-
+    print('Auto registrado con éxito!')
 
 def show_inventario(inventario):
 
@@ -241,68 +263,97 @@ def modify_inventario():
     auto.disponible = input('Ingrese si el auto esta disponible: ')
 
 
-def add_reservation(reservation):
+def add_reservation(reservations):
     fecha = date.today()
     customers = load_data()
     inventario = load_inventario()
+    
     if not customers:
         print('No hay clientes registrados')
         return
-    else:
     
-        show_customers(customers)
+    show_customers(customers)
 
     customer_id = int(input('Ingrese el id del cliente: '))
-    for customer in customers:
-        if customer_id != customer.id:
-            print('Cliente no encontrado')
-            add_customer(customers)
-        else:
-            customer_name = customer.name
-            customer_lastname = customer.lastname
+    customer = next((c for c in customers if c.id == customer_id), None)
+    if not customer:
+        print('Cliente no encontrado')
+        return
 
-    
     if not inventario:
         print('No hay autos registrados')
-    else:
-        show_inventario(inventario)
+        return
     
+    show_inventario(inventario)
+
     auto_id = int(input('Ingrese el id del auto: '))
-    for auto in inventario:
-        if auto_id != auto.id:
-            print('Auto no encontrado')
-            return
-        else:
-            auto_name = auto.marca
-            auto_model = auto.modelo
-    
-    start_date = fecha
+    auto = next((a for a in inventario if a.id == auto_id), None)
+    if not auto:
+        print('Auto no encontrado')
+        return
+    if not auto.disponible:
+        print('El auto no está disponible para alquilar.')
+        return
+
     end_date = input('Ingrese la fecha de fin de la reservacion(YYYY-MM-DD): ')
-    start_date = datetime.strptime(str(start_date), '%Y-%m-%d')
+    start_date = datetime.strptime(str(fecha), '%Y-%m-%d')
     end_date = datetime.strptime(str(end_date), '%Y-%m-%d')
-    dias = end_date - start_date
-    dias = dias.days
+    dias = (end_date - start_date).days
     total = dias * int(auto.precio)
+
+    new_id = max((r.id for r in reservations), default=0) + 1
+    reservations.append(Reservation(new_id, customer.id, auto.id, customer.name, customer.lastname, auto.marca, auto.modelo, start_date, end_date, total))
     
-    reservation = load_reservation()
-    if reservation:
-        new_id = max(reservation.id for reservation in reservation) + 1
-    else:
-        new_id = 1
-    reservation.append(Reservation(new_id, customer.id, auto.id, customer_name, customer_lastname,auto_name, auto_model, start_date, end_date, total))
-    save_reservation(reservation)
+    auto.disponible = False
+    save_inventario(inventario)  
+    save_reservation(reservations)
     print('Reservacion registrada con exito!')
 
-def show_reservation(reservations):
+def return_car(reservations):
+    if not reservations:
+        print('\nNo hay reservaciones activas')
+        return
     
+    print('\n=== DEVOLUCIÓN DE VEHÍCULO ===')
+    show_reservation(reservations)
+    
+    try:
+        reservation_id = int(input('\nIngrese el ID de la reservación a devolver: '))
+        reservation = next((r for r in reservations if r.id == reservation_id), None)
+        
+        if reservation:
+            print(f'\nDatos de la reservación:')
+            print(f'Cliente: {reservation.customer_name} {reservation.customer_lastname}')
+            print(f'Vehículo: {reservation.auto_name} {reservation.auto_model}')
+            print(f'Total pagado: ${reservation.total:,}')
+            
+            confirmar = input('\n¿Confirmar devolución? (s/n): ').lower()
+            if confirmar == 's':
+                
+                print('\nVehículo devuelto exitosamente!')
+            else:
+                print('\nDevolución cancelada')
+        else:
+            print('\nReservación no encontrada')
+            
+    except ValueError:
+        print('\nError: Debe ingresar un número válido para el ID')
+
+def show_reservation(reservations):
     if not reservations:
         print('No hay reservaciones registradas')
         return
-    print('Lista de reservaciones:')
+    
+    print('\n=== LISTA DE RESERVACIONES ===')
     for reservation in reservations:
-        print(
-            f'Reservacion id: {reservation.id} - Cliente Id: {reservation.customer_id} - Auto Id: {reservation.car_id} - Fecha Inicio: {reservation.start_date} - Fecha Entrega: {reservation.end_date} - Total: {reservation.total}')
-
+        print(f"""
+        Reservación ID: {reservation.id}
+        Cliente: {reservation.customer_name} {reservation.customer_lastname} (ID: {reservation.customer_id})
+        Vehículo: {reservation.auto_name} {reservation.auto_model} (ID: {reservation.car_id})
+        Fecha Inicio: {reservation.start_date.strftime('%Y-%m-%d')}
+        Fecha Entrega: {reservation.end_date.strftime('%Y-%m-%d')}
+        Total: ${reservation.total:,}
+        ------------------------------------------""")
 
 def search_reservation(reservations):
     
@@ -343,7 +394,7 @@ def menu_principal():
         print("3. Menu de reservaciones")
         print('4. Salir')
         option = input('Ingrese una opcion: ')
-
+        os.system('cls')
         if option == '1':
 
             menu_customers()
@@ -374,63 +425,70 @@ def menu_customers():
         print('4. Mostrar clientes')
         print('5. Regresar')
         option = input('Ingrese una opcion: ')
-        os.system('cls')
+        os.system('cls')  #Modificado por Migue
 
         if option == '1':
             add_customer(customers)
         elif option == '2':
-            search_customer()
+            search_customer(customers)
         elif option == '3':
-            modify_customer()
+            modify_customer(customers)
         elif option == '4':
-            show_customers()
+            show_customers(customers)  
         elif option == '5':
-
             break
         else:
             print('Opcion invalida')
 
-
+# Modificado por Migue
 def menu_reservation():
     reservations = load_reservation()
     while True:
+        os.system('cls')  
         print('Menu de reservaciones')
         print('1. Realizar reservacion')
         print('2. Buscar reservacion')
         print('3. Modificar reservacion')
-        print('4. Regresar')
+        print('4. Devolver auto')
+        print('5. Regresar')
         option = input('Ingrese una opcion: ')
         os.system('cls')
-
         if option == '1':
             add_reservation(reservations)
+            os.system('cls')
         elif option == '2':
             search_reservation(reservations)
+            os.system('cls')
         elif option == '3':
+            os.system('cls')  # Modificado por Migue
             modify_reservation(reservations)
         elif option == '4':
+            return_car(reservations)
+        elif option == '5':
+            os.system('cls')
             break
+        else:
+            print('Opcion invalida')
 
-
+#Modificado por Migue
 def menu_inventory():
-    invetario = load_inventario()
+    inventario = load_inventario()  
     while True:
+        os.system('cls')  
         print('Menu de inventario')
         print('1. Registrar auto')
         print('2. Buscar auto')
         print('3. Modificar auto')
         print('4. Regresar')
         option = input('Ingrese una opcion: ')
-        os.system('cls')
 
         if option == '1':
-            add_inventario()
+            add_inventario(inventario)  
         elif option == '2':
-            search_inventario()
+            search_inventario(inventario)  
         elif option == '3':
-            modify_inventario()
+            modify_inventario(inventario)  
         elif option == '4':
-            1
             break
         else:
             print('Opcion invalida')

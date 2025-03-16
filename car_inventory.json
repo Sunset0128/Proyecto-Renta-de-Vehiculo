@@ -1,47 +1,83 @@
 [
-    {
-        "id": 1,
-        "marca": "Toyota",
-        "modelo": "Corolla",
-        "year": 2015,
-        "color": "red",
-        "precio": 50,
-        "disponible": "Disponible"
-    },
-    {
-        "id": 2,
-        "marca": "Toyota",
-        "modelo": "Camry",
-        "year": 2016,
-        "color": "blue",
-        "precio": 75,
-        "disponible": "Disponible"
-    },
-    {
-        "id": 3,
-        "marca": "Toyota",
-        "modelo": "Prius",
-        "year": 2017,
-        "color": "green",
-        "precio": 80,
-        "disponible": "Disponible"
-    },
-    {
-        "id": 4,
-        "marca": "Toyota",
-        "modelo": "Avalon",
-        "year": 2018,
-        "color": "black",
-        "precio": 65,
-        "disponible": "Disponible"
-    },
-    {
-        "id": 5,
-        "marca": "Toyota",
-        "modelo": "Rav4",
-        "year": 2019,
-        "color": "white",
-        "precio": 90,
-        "disponible": "Disponible"
-    }
+  {
+    "id": 1,
+    "marca": "Toyota",
+    "modelo": "Corolla",
+    "year": 2015,
+    "precio": 50,
+    "color": "red",
+    "disponible": "Disponible"
+  },
+  {
+    "id": 2,
+    "marca": "Toyota",
+    "modelo": "Camry",
+    "year": 2016,
+    "precio": 75,
+    "color": "blue",
+    "disponible": "Disponible"
+  },
+  {
+    "id": 3,
+    "marca": "Toyota",
+    "modelo": "Prius",
+    "year": 2017,
+    "precio": 80,
+    "color": "green",
+    "disponible": "Disponible"
+  },
+  {
+    "id": 4,
+    "marca": "Toyota",
+    "modelo": "Avalon",
+    "year": 2018,
+    "precio": 65,
+    "color": "black",
+    "disponible": "Disponible"
+  },
+  {
+    "id": 5,
+    "marca": "Toyota",
+    "modelo": "Rav4",
+    "year": 2019,
+    "precio": 90,
+    "color": "white",
+    "disponible": false
+  },
+  {
+    "id": 6,
+    "marca": "Hyundai",
+    "modelo": "Santa Fe",
+    "year": "2022",
+    "precio": "130",
+    "color": "black",
+    "disponible": true
+  },
+  {
+    "id": 7,
+    "marca": "Kia",
+    "modelo": "Sorento",
+    "year": "2022",
+    "precio": "130",
+    "color": "si",
+    "disponible": true
+  },
+  {
+    "id": 8,
+    "marca": "Ford",
+    "modelo": "Explorer",
+    "year": "2021",
+    "precio": "130",
+    "color": "black",
+    "disponible": true
+  },
+  {
+    "id": 9,
+    "marca": "Lexus",
+    "modelo": "350",
+    "year": "2018",
+    "precio": "130",
+    "color": "white",
+    "disponible": true
+  }
 ]

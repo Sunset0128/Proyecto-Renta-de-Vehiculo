@@ -1,9 +1,23 @@
 [
-    {
-        "id": 1,
-        "name": "jean",
-        "lastname": "marmolejos",
-        "email": "jpmarmolejos@hotmail.com",
-        "phone": "12345"
-      } 
+  {
+    "id": 1,
+    "name": "jean",
+    "lastname": "marmolejos",
+    "email": "jpmarmolejos@hotmail.com",
+    "phone": "12345"
+  },
+  {
+    "id": 2,
+    "name": "Miguerangel",
+    "lastname": "Novas",
+    "email": "miguerangeln28@hotmail.com",
+    "phone": "8296707817"
+  },
+  {
+    "id": 3,
+    "name": "Juan",
+    "lastname": "Perez",
+    "email": "juanperez1@gmail.com",
+    "phone": "8095621536"
+  }
 ]
