@@ -309,6 +309,7 @@ def add_reservation(reservations):
     save_reservation(reservations)
     print('Reservacion registrada con exito!')
 
+#Modificado por Migue
 def return_car(reservations):
     if not reservations:
         print('\nNo hay reservaciones activas')
@@ -339,6 +340,7 @@ def return_car(reservations):
     except ValueError:
         print('\nError: Debe ingresar un número válido para el ID')
 
+#Modificado por Migue
 def show_reservation(reservations):
     if not reservations:
         print('No hay reservaciones registradas')
