@@ -79,5 +79,329 @@
     "precio": "130",
     "color": "white",
     "disponible": true
-  }
+  },
+  {
+      "id": 10,
+      "marca": "Chevrolet",
+      "modelo": "Tahoe",
+      "year": 2024,
+      "precio": 150,
+      "color": "Negro",
+      "disponible": true
+    },
+    {
+      "id": 11,
+      "marca": "Nissan",
+      "modelo": "Altima",
+      "year": 2023,
+      "precio": 85,
+      "color": "Plateado",
+      "disponible": true
+    },
+    {
+      "id": 12,
+      "marca": "Volkswagen",
+      "modelo": "Jetta",
+      "year": 2024,
+      "precio": 70,
+      "color": "Rojo",
+      "disponible": true
+    },
+    {
+      "id": 13,
+      "marca": "Mazda",
+      "modelo": "CX-5",
+      "year": 2023,
+      "precio": 95,
+      "color": "Azul",
+      "disponible": true
+    },
+    {
+      "id": 14,
+      "marca": "Subaru",
+      "modelo": "Outback",
+      "year": 2024,
+      "precio": 110,
+      "color": "Verde",
+      "disponible": false
+    },
+    {
+      "id": 15,
+      "marca": "Honda",
+      "modelo": "Civic",
+      "year": 2023,
+      "precio": 75,
+      "color": "Blanco",
+      "disponible": true
+    },
+    {
+      "id": 16,
+      "marca": "Hyundai",
+      "modelo": "Elantra",
+      "year": 2023,
+      "precio": 70,
+      "color": "Gris",
+      "disponible": true
+    },
+    {
+      "id": 17,
+      "marca": "Kia",
+      "modelo": "Forte",
+      "year": 2023,
+      "precio": 65,
+      "color": "Negro",
+      "disponible": true
+    },
+    {
+      "id": 18,
+      "marca": "Ford",
+      "modelo": "Fusion",
+      "year": 2023,
+      "precio": 80,
+      "color": "Azul",
+      "disponible": true
+    },
+    {
+      "id": 19,
+      "marca": "Toyota",
+      "modelo": "Camry",
+      "year": 2023,
+      "precio": 90,
+      "color": "Blanco",
+      "disponible": true
+    },
+    {
+      "id": 20,
+      "marca": "Chevrolet",
+      "modelo": "Malibu",
+      "year": 2023,
+      "precio": 75,
+      "color": "Rojo",
+      "disponible": true
+    },
+    {
+      "id": 21,
+      "marca": "Nissan",
+      "modelo": "Rogue",
+      "year": 2023,
+      "precio": 95,
+      "color": "Gris",
+      "disponible": true
+    },
+    {
+      "id": 22,
+      "marca": "Volkswagen",
+      "modelo": "Tiguan",
+      "year": 2023,
+      "precio": 100,
+      "color": "Negro",
+      "disponible": true
+    },
+    {
+      "id": 23,
+      "marca": "Mazda",
+      "modelo": "Mazda3",
+      "year": 2023,
+      "precio": 85,
+      "color": "Blanco",
+      "disponible": true
+    },
+    {
+      "id": 24,
+      "marca": "Subaru",
+      "modelo": "Forester",
+      "year": 2023,
+      "precio": 110,
+      "color": "Verde",
+      "disponible": true
+    },
+    {
+      "id": 25,
+      "marca": "Honda",
+      "modelo": "CR-V",
+      "year": 2023,
+      "precio": 120,
+      "color": "Negro",
+      "disponible": true
+    },
+    {
+      "id": 26,
+      "marca": "Hyundai",
+      "modelo": "Tucson",
+      "year": 2023,
+      "precio": 105,
+      "color": "Plateado",
+      "disponible": true
+    },
+    {
+      "id": 27,
+      "marca": "Kia",
+      "modelo": "Sportage",
+      "year": 2024,
+      "precio": 115,
+      "color": "Blanco",
+      "disponible": true
+    },
+    {
+      "id": 28,
+      "marca": "Ford",
+      "modelo": "Escape",
+      "year": 2023,
+      "precio": 95,
+      "color": "Azul",
+      "disponible": true
+    },
+    {
+      "id": 29,
+      "marca": "Toyota",
+      "modelo": "Highlander",
+      "year": 2024,
+      "precio": 140,
+      "color": "Negro",
+      "disponible": true
+    },
+    {
+      "id": 30,
+      "marca": "Chevrolet",
+      "modelo": "Traverse",
+      "year": 2023,
+      "precio": 130,
+      "color": "Gris",
+      "disponible": true
+    },
+    {
+      "id": 31,
+      "marca": "Nissan",
+      "modelo": "Murano",
+      "year": 2023,
+      "precio": 125,
+      "color": "Rojo",
+      "disponible": true
+    },
+    {
+      "id": 32,
+      "marca": "Volkswagen",
+      "modelo": "Atlas",
+      "year": 2024,
+      "precio": 150,
+      "color": "Blanco",
+      "disponible": false
+    },
+    {
+      "id": 33,
+      "marca": "Mazda",
+      "modelo": "CX-9",
+      "year": 2023,
+      "precio": 135,
+      "color": "Negro",
+      "disponible": true
+    },
+    {
+      "id": 34,
+      "marca": "Subaru",
+      "modelo": "Ascent",
+      "year": 2024,
+      "precio": 145,
+      "color": "Verde",
+      "disponible": true
+    },
+    {
+      "id": 35,
+      "marca": "Honda",
+      "modelo": "Passport",
+      "year": 2023,
+      "precio": 155,
+      "color": "Gris",
+      "disponible": true
+    },
+    {
+      "id": 36,
+      "marca": "Hyundai",
+      "modelo": "Palisade",
+      "year": 2024,
+      "precio": 160,
+      "color": "Plateado",
+      "disponible": true
+    },
+    {
+      "id": 37,
+      "marca": "Kia",
+      "modelo": "Telluride",
+      "year": 2024,
+      "precio": 165,
+      "color": "Negro",
+      "disponible": true
+    },
+    {
+      "id": 38,
+      "marca": "Ford",
+      "modelo": "Expedition",
+      "year": 2023,
+      "precio": 180,
+      "color": "Blanco",
+      "disponible": true
+    },
+    {
+      "id": 39,
+      "marca": "Toyota",
+      "modelo": "4Runner",
+      "year": 2024,
+      "precio": 170,
+      "color": "Rojo",
+      "disponible": true
+    },
+    {
+      "id": 40,
+      "marca": "Chevrolet",
+      "modelo": "Suburban",
+      "year": 2023,
+      "precio": 200,
+      "color": "Negro",
+      "disponible": true
+    },
+    {
+      "id": 41,
+      "marca": "Nissan",
+      "modelo": "Armada",
+      "year": 2024,
+      "precio": 190,
+      "color": "Gris",
+      "disponible": true
+    },
+    {
+      "id": 42,
+      "marca": "Volkswagen",
+      "modelo": "Touareg",
+      "year": 2023,
+      "precio": 175,
+      "color": "Azul",
+      "disponible": true
+    },
+    {
+      "id": 43,
+      "marca": "Mazda",
+      "modelo": "CX-30",
+      "year": 2024,
+      "precio": 95,
+      "color": "Rojo",
+      "disponible": true
+    },
+    {
+      "id": 44,
+      "marca": "Subaru",
+      "modelo": "Crosstrek",
+      "year": 2023,
+      "precio": 85,
+      "color": "Naranja",
+      "disponible": true
+    },
+    {
+      "id": 45,
+      "marca": "Honda",
+      "modelo": "HR-V",
+      "year": 2024,
+      "precio": 100,
+      "color": "Blanco",
+      "disponible": true
+    }
 ]
