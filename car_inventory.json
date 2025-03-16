@@ -6,7 +6,7 @@
     "year": 2015,
     "precio": 50,
     "color": "red",
-    "disponible": "Disponible"
+    "disponible": true
   },
   {
     "id": 2,
@@ -15,7 +15,7 @@
     "year": 2016,
     "precio": 75,
     "color": "blue",
-    "disponible": "Disponible"
+    "disponible": true
   },
   {
     "id": 3,
@@ -24,7 +24,7 @@
     "year": 2017,
     "precio": 80,
     "color": "green",
-    "disponible": "Disponible"
+    "disponible": true
   },
   {
     "id": 4,
@@ -33,7 +33,7 @@
     "year": 2018,
     "precio": 65,
     "color": "black",
-    "disponible": "Disponible"
+    "disponible": true
   },
   {
     "id": 5,
