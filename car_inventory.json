@@ -1,0 +1,47 @@
+[
+    {
+        "id": 1,
+        "marca": "Toyota",
+        "modelo": "Corolla",
+        "year": 2015,
+        "color": "red",
+        "precio": 50,
+        "disponible": "Disponible"
+    },
+    {
+        "id": 2,
+        "marca": "Toyota",
+        "modelo": "Camry",
+        "year": 2016,
+        "color": "blue",
+        "precio": 75,
+        "disponible": "Disponible"
+    },
+    {
+        "id": 3,
+        "marca": "Toyota",
+        "modelo": "Prius",
+        "year": 2017,
+        "color": "green",
+        "precio": 80,
+        "disponible": "Disponible"
+    },
+    {
+        "id": 4,
+        "marca": "Toyota",
+        "modelo": "Avalon",
+        "year": 2018,
+        "color": "black",
+        "precio": 65,
+        "disponible": "Disponible"
+    },
+    {
+        "id": 5,
+        "marca": "Toyota",
+        "modelo": "Rav4",
+        "year": 2019,
+        "color": "white",
+        "precio": 90,
+        "disponible": "Disponible"
+    }
+]
