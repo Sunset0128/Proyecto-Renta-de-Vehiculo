@@ -386,8 +386,16 @@ def modify_reservation(reservations):
     reservations.end_date = input('Ingrese la nueva fecha de fin de la reservacion: ')
     reservations.total = input('Ingrese el nuevo total de la reservacion: ')
 
-
-
+def reporte(reservations):
+    if not reservations:
+        print('No hay reservaciones registradas')
+        return
+    total_de_reservaciones = len(reservations)
+    total_de_ingresos = sum(reservation.total for reservation in reservations)
+    print('=================REPORTES DE RESERVACIONES=================')
+    print(f'Total de reservaciones: {total_de_reservaciones}')
+    print(f'Total de ingresos: ${total_de_ingresos}')
+        
 def menu_principal():
     while True:
         print('Menu principal')
@@ -446,13 +454,14 @@ def menu_customers():
 def menu_reservation():
     reservations = load_reservation()
     while True:
-        os.system('cls')  
+        
         print('Menu de reservaciones')
         print('1. Realizar reservacion')
         print('2. Buscar reservacion')
         print('3. Modificar reservacion')
         print('4. Devolver auto')
-        print('5. Regresar')
+        print('5. Reporte de reservaciones')
+        print('6. Regresar')
         option = input('Ingrese una opcion: ')
         os.system('cls')
         if option == '1':
@@ -467,6 +476,8 @@ def menu_reservation():
         elif option == '4':
             return_car(reservations)
         elif option == '5':
+            reporte(reservations)
+        elif option == '6':
             os.system('cls')
             break
         else:
