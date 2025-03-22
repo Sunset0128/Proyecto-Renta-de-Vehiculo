@@ -374,17 +374,38 @@ def search_reservation(reservations):
                 f'{reservation.id} - {reservation.customer_id} {reservation.car_id} - {reservation.start_date} - {reservation.end_date} - {reservation.total}')
             return reservations
 
-
+#Modificado por Migue 22/3/2025
 def modify_reservation(reservations):
     show_reservation(reservations)
-    reservations = search_reservation(reservations)
-    if not reservations:
+    reservation_id = int(input('Ingrese el ID de la reservación a modificar: '))
+    reservation = next((r for r in reservations if r.id == reservation_id), None)
+    
+    if not reservation:
+        print('Reservación no encontrada')
         return
-    reservations.customer_id = input('Ingrese el nuevo id del cliente: ')
-    reservations.car_id = input('Ingrese el nuevo id del auto: ')
-    reservations.start_date = input('Ingrese la nueva fecha de inicio de la reservacion: ')
-    reservations.end_date = input('Ingrese la nueva fecha de fin de la reservacion: ')
-    reservations.total = input('Ingrese el nuevo total de la reservacion: ')
+
+    
+    reservation.customer_id = input('Ingrese el nuevo id del cliente: ')
+    reservation.car_id = input('Ingrese el nuevo id del auto: ')
+    
+   
+    new_start_date = input('Ingrese la nueva fecha de inicio de la reservación (YYYY-MM-DD): ')
+    new_end_date = input('Ingrese la nueva fecha de fin de la reservación (YYYY-MM-DD): ')
+    
+    
+    try:
+        reservation.start_date = datetime.strptime(new_start_date, '%Y-%m-%d')
+        reservation.end_date = datetime.strptime(new_end_date, '%Y-%m-%d')
+        
+        
+        dias = (reservation.end_date - reservation.start_date).days
+        reservation.total = dias * int(reservation.total / (reservation.end_date - reservation.start_date).days)  # Assuming the total was calculated based on days
+        
+    except ValueError:
+        print('Error: Formato de fecha inválido. Asegúrese de usar el formato YYYY-MM-DD.')
+        return
+
+    print('Reservación modificada con éxito!')
 
 def reporte(reservations):
     if not reservations:
@@ -466,12 +487,12 @@ def menu_reservation():
         os.system('cls')
         if option == '1':
             add_reservation(reservations)
-            os.system('cls')
+            
         elif option == '2':
             search_reservation(reservations)
-            os.system('cls')
+            
         elif option == '3':
-            os.system('cls')  # Modificado por Migue
+              # Modificado por Migue
             modify_reservation(reservations)
         elif option == '4':
             return_car(reservations)
@@ -505,6 +526,4 @@ def menu_inventory():
             break
         else:
             print('Opcion invalida')
-
-
 menu_principal()
