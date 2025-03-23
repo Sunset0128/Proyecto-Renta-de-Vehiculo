@@ -270,7 +270,7 @@ def modify_inventario(inventario):
     auto.disponible = True if disponible_input == 's' else False
 
     save_inventario(inventario)
-    print('Auto modificado con éxito!')
+    print('Auto modificado con éxito!') 
 
 def add_reservation(reservations):
     fecha = date.today()
@@ -386,32 +386,46 @@ def search_reservation(reservations):
 #Modificado por Migue 22/3/2025
 def modify_reservation(reservations):
     show_reservation(reservations)
-    reservation_id = int(input('Ingrese el ID de la reservación a modificar: '))
-    reservation = next((r for r in reservations if r.id == reservation_id))
     
-    if not reservation:
-        print('Reservación no encontrada')
-        return
+    while True:
+        reservation_id_input = input('Ingrese el ID de la reservación a modificar: ')
+        
+        # Check if the input is empty
+        if reservation_id_input.strip() == '':
+            print('Error: No se puede dejar el ID vacío. Intente de nuevo.')
+            continue  
+        
+        try:
+            reservation_id = int(reservation_id_input)
+            reservation = next((r for r in reservations if r.id == reservation_id), None)
+            
+            if not reservation:
+                print('Reservación no encontrada. Intente de nuevo.')
+                continue  
+            
+            reservation.customer_id = input('Ingrese el nuevo id del cliente: ')
+            reservation.car_id = input('Ingrese el nuevo id del auto: ')
+           
+            new_start_date = input('Ingrese la nueva fecha de inicio de la reservación (YYYY-MM-DD): ')
+            new_end_date = input('Ingrese la nueva fecha de fin de la reservación (YYYY-MM-DD): ')
+            
+            try:
+                reservation.start_date = datetime.strptime(new_start_date, '%Y-%m-%d')
+                reservation.end_date = datetime.strptime(new_end_date, '%Y-%m-%d')
+                
+               
+                dias = (reservation.end_date - reservation.start_date).days
+                reservation.total = dias * int(reservation.total / (reservation.end_date - reservation.start_date).days)  # Assuming the total was calculated based on days
+                
+            except ValueError:
+                print('Error: Formato de fecha inválido. Asegúrese de usar el formato YYYY-MM-DD.')
+                continue  
 
-    reservation.customer_id = input('Ingrese el nuevo id del cliente: ')
-    reservation.car_id = input('Ingrese el nuevo id del auto: ')
-    
-    new_start_date = input('Ingrese la nueva fecha de inicio de la reservación (YYYY-MM-DD): ')
-    new_end_date = input('Ingrese la nueva fecha de fin de la reservación (YYYY-MM-DD): ')
-    
-    try:
-        reservation.start_date = datetime.strptime(new_start_date, '%Y-%m-%d')
-        reservation.end_date = datetime.strptime(new_end_date, '%Y-%m-%d')
-        
-        
-        dias = (reservation.end_date - reservation.start_date).days
-        reservation.total = dias * int(reservation.total / (reservation.end_date - reservation.start_date).days)  # Assuming the total was calculated based on days
-        
-    except ValueError:
-        print('Error: Formato de fecha inválido. Asegúrese de usar el formato YYYY-MM-DD.')
-        return
+            print('Reservación modificada con éxito!')
+            break  
 
-    print('Reservación modificada con éxito!')
+        except ValueError:
+            print('Error: Debe ingresar un número válido para el ID. Intente de nuevo.')
 
 def reporte(reservations):
     if not reservations:
