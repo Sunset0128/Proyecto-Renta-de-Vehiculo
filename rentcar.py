@@ -284,7 +284,7 @@ def add_reservation(reservations):
     show_customers(customers)
 
     customer_id = int(input('Ingrese el id del cliente: '))
-    customer = next((c for c in customers if c.id == customer_id), None)
+    customer = next((c for c in customers if c.id == customer_id))
     if not customer:
         print('Cliente no encontrado')
         return
@@ -296,7 +296,7 @@ def add_reservation(reservations):
     show_inventario(inventario)
 
     auto_id = int(input('Ingrese el id del auto: '))
-    auto = next((a for a in inventario if a.id == auto_id), None)
+    auto = next((a for a in inventario if a.id == auto_id))
     if not auto:
         print('Auto no encontrado')
         return
@@ -329,7 +329,7 @@ def return_car(reservations):
     
     try:
         reservation_id = int(input('\nIngrese el ID de la reservación a devolver: '))
-        reservation = next((r for r in reservations if r.id == reservation_id), None)
+        reservation = next((r for r in reservations if r.id == reservation_id))
         
         if reservation:
             print(f'\nDatos de la reservación:')
@@ -387,7 +387,7 @@ def search_reservation(reservations):
 def modify_reservation(reservations):
     show_reservation(reservations)
     reservation_id = int(input('Ingrese el ID de la reservación a modificar: '))
-    reservation = next((r for r in reservations if r.id == reservation_id), None)
+    reservation = next((r for r in reservations if r.id == reservation_id))
     
     if not reservation:
         print('Reservación no encontrada')
