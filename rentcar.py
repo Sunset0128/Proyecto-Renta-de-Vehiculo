@@ -251,17 +251,26 @@ def search_inventario(inventario):
     print('Auto no encontrado')
 
 
-def modify_inventario():
-    auto = search_inventario()
+def modify_inventario(inventario):
+    print("Iniciando modificación del inventario...")
+    auto = search_inventario(inventario)
+    
     if not auto:
+        print("No se encontró el auto para modificar.")
         return
+
+    print("Auto encontrado, procediendo a la modificación...")
     auto.marca = input('Ingrese la nueva marca del auto: ')
     auto.modelo = input('Ingrese el nuevo modelo del auto: ')
     auto.year = input('Ingrese el nuevo año del auto: ')
     auto.precio = input('Ingrese el nuevo precio del auto: ')
-    auto.color = input('Ingrese el color del auto: ')
-    auto.disponible = input('Ingrese si el auto esta disponible: ')
+    auto.color = input('Ingrese el nuevo color del auto: ')
+    
+    disponible_input = input('¿Está el auto disponible? (s/n): ').lower()
+    auto.disponible = True if disponible_input == 's' else False
 
+    save_inventario(inventario)
+    print('Auto modificado con éxito!')
 
 def add_reservation(reservations):
     fecha = date.today()
@@ -384,14 +393,11 @@ def modify_reservation(reservations):
         print('Reservación no encontrada')
         return
 
-    
     reservation.customer_id = input('Ingrese el nuevo id del cliente: ')
     reservation.car_id = input('Ingrese el nuevo id del auto: ')
     
-   
     new_start_date = input('Ingrese la nueva fecha de inicio de la reservación (YYYY-MM-DD): ')
     new_end_date = input('Ingrese la nueva fecha de fin de la reservación (YYYY-MM-DD): ')
-    
     
     try:
         reservation.start_date = datetime.strptime(new_start_date, '%Y-%m-%d')
@@ -499,7 +505,6 @@ def menu_reservation():
         elif option == '5':
             reporte(reservations)
         elif option == '6':
-            os.system('cls')
             break
         else:
             print('Opcion invalida')
@@ -508,13 +513,13 @@ def menu_reservation():
 def menu_inventory():
     inventario = load_inventario()  
     while True:
-        os.system('cls')  
         print('Menu de inventario')
         print('1. Registrar auto')
         print('2. Buscar auto')
         print('3. Modificar auto')
         print('4. Regresar')
         option = input('Ingrese una opcion: ')
+        os.system('cls')  
 
         if option == '1':
             add_inventario(inventario)  
